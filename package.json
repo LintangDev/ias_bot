@@ -1,0 +1,17 @@
+{
+  "name": "ias-bot",
+  "version": "1.0.0",
+  "description": "Discord Bot for IAS",
+  "license": "ISC",
+  "author": "LintangDev",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord.js": "^14.26.4",
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {}
+}
