@@ -3,13 +3,15 @@
 const { Events } = require('discord.js');
 const { log }    = require('../utils/logger');
 
-const postRulesCommand = require('../commands/postRules');
-const metarCommand     = require('../commands/metar');
+const postRulesCommand  = require('../commands/postRules');
+const metarCommand      = require('../commands/metar');
+const reactRolesCommand = require('../commands/reactRoles');
 
 // Map nama command → handler
 const commands = new Map([
-  [postRulesCommand.data.name, postRulesCommand],
-  [metarCommand.data.name,     metarCommand],
+  [postRulesCommand.data.name,  postRulesCommand],
+  [metarCommand.data.name,      metarCommand],
+  [reactRolesCommand.data.name, reactRolesCommand],
 ]);
 
 module.exports = {

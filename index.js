@@ -8,18 +8,17 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessageReactions,
   ],
 });
 
 // ─── Load events ──────────────────────────────────────────────────────────────
-// Tambah file event baru di src/events/ — otomatis terdaftar di sini
-
 const eventFiles = [
   require('./src/events/ready'),
   require('./src/events/interactionCreate'),
   require('./src/events/memberJoin'),
-  // intro.js export array (MessageCreate + MessageUpdate)
   ...require('./src/events/intro'),
+  ...require('./src/events/reactRoles'),
 ];
 
 for (const event of eventFiles) {
@@ -32,6 +31,6 @@ for (const event of eventFiles) {
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 client.login(process.env.DISCORD_TOKEN).catch(err => {
-  log('error', `Gagal login: ${err.message}`);
+  log('error', `Login failed: ${err.message}`);
   process.exit(1);
 });

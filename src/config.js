@@ -8,7 +8,8 @@ module.exports = {
   INTRO_CHANNEL_ID : process.env.INTRO_CHANNEL_ID,
   LOG_CHANNEL_ID   : process.env.LOG_CHANNEL_ID,
   STAFF_CHANNEL_ID : process.env.STAFF_CHANNEL_ID,
-  RULES_CHANNEL_ID : process.env.RULES_CHANNEL_ID,
+  RULES_CHANNEL_ID      : process.env.RULES_CHANNEL_ID,
+  REACT_ROLES_CHANNEL_ID: process.env.REACT_ROLES_CHANNEL_ID,
 
   // ── Rules embed ─────────────────────────────────────────────────────────────
   RULES_BANNER_URL : process.env.RULES_BANNER_URL,

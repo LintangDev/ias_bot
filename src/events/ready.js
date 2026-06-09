@@ -1,17 +1,19 @@
 // ─── events/ready.js ──────────────────────────────────────────────────────────
 
-const { Events, REST, Routes, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { Events, REST, Routes } = require('discord.js');
 const { log } = require('../utils/logger');
+const { get } = require('../utils/store');
 const { INTRO_CHANNEL_ID, LOG_CHANNEL_ID, STAFF_CHANNEL_ID, RULES_CHANNEL_ID, INTRO_SLOWMODE } = require('../config');
 
-// Import semua command definition untuk registrasi sekaligus
-const postRulesCommand = require('../commands/postRules');
-const metarCommand     = require('../commands/metar');
+const postRulesCommand  = require('../commands/postRules');
+const metarCommand      = require('../commands/metar');
+const reactRolesCommand = require('../commands/reactRoles');
 
 async function registerCommands(client) {
   const commands = [
     postRulesCommand.data.toJSON(),
     metarCommand.data.toJSON(),
+    reactRolesCommand.data.toJSON(),
   ];
 
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -45,5 +47,18 @@ module.exports = {
     }
 
     await registerCommands(client);
+
+    // Fetch pesan react roles ke cache agar reaction event ter-trigger setelah restart
+    const savedChannelId = get('reactRolesChannelId');
+    const savedMessageId = get('reactRolesMessageId');
+    if (savedChannelId && savedMessageId) {
+      try {
+        const ch = await client.channels.fetch(savedChannelId);
+        await ch.messages.fetch(savedMessageId);
+        log('ok', `React roles message cached (${savedMessageId})`);
+      } catch (err) {
+        log('warn', `Could not cache react roles message: ${err.message}`);
+      }
+    }
   },
 };
